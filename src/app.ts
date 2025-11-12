@@ -290,3 +290,17 @@ restartBtn.addEventListener('click', () => {
 
 // ===== 初期化 =====
 console.log('ゲームスコア記録アプリ起動');
+
+// グローバルエラーハンドラ
+window.addEventListener('error', (event) => {
+  console.error('グローバルエラー:', event.error);
+  console.error('スタック:', event.error?.stack);
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+  console.error('未処理のPromise拒否:', event.reason);
+});
+
+// モジュール読み込みチェック
+console.log('gameManager:', gameManager);
+console.log('showScreen:', showScreen);

@@ -171,4 +171,13 @@ restartBtn.addEventListener('click', () => {
     showScreen('setupScreen');
 });
 console.log('ゲームスコア記録アプリ起動');
+window.addEventListener('error', (event) => {
+    console.error('グローバルエラー:', event.error);
+    console.error('スタック:', event.error?.stack);
+});
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('未処理のPromise拒否:', event.reason);
+});
+console.log('gameManager:', gameManager);
+console.log('showScreen:', showScreen);
 //# sourceMappingURL=app.js.map

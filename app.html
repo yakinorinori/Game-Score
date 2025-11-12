@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ゲームスコア記録アプリ</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- デバッグ用スクリプト -->
+    <script>
+        console.log('[LOAD] DOMContentLoading開始');
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('[LOAD] DOMContentLoaded完了');
+        });
+        window.addEventListener('load', () => {
+            console.log('[LOAD] ページロード完了');
+        });
+    </script>
+
     <div class="container">
         <!-- Initial Setup Screen -->
         <div id="setupScreen" class="screen active">
