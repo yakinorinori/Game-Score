@@ -18,6 +18,7 @@ body {
     background: white;
     border-radius: 0;
     padding: 16px;
+    padding-bottom: 80px;
     min-height: 100vh;
 }
 
@@ -534,6 +535,7 @@ h2 {
         border-radius: 12px;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
         padding: 24px;
+        padding-bottom: 80px;
     }
 
     body {
