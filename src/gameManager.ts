@@ -91,6 +91,57 @@ export class GameManager {
   }
 
   /**
+   * プレイヤーのグループ化されたスコア履歴を取得
+   * @param playerIndex - プレイヤーインデックス
+   * @returns グループ化されたスコア情報の配列
+   */
+  getPlayerScoreHistoryGrouped(playerIndex: number): { 
+    label: string; 
+    score: number; 
+    gameRange: string;
+  }[] {
+    const scores = this.players[playerIndex]?.scores || [];
+    const grouped: { label: string; score: number; gameRange: string }[] = [];
+
+    let gameNum = 1;
+    let i = 0;
+
+    while (i < scores.length) {
+      // 最初の9ゲーム（1～9）は個別に表示
+      if (gameNum <= 9) {
+        grouped.push({
+          label: `ゲーム${gameNum}`,
+          score: scores[i],
+          gameRange: `${gameNum}`,
+        });
+        gameNum++;
+        i++;
+      } else {
+        // 10ゲーム以降はグループ化
+        const groupStart = gameNum;
+        const groupEnd = Math.min(gameNum + 9, scores.length + gameNum - 1);
+        let groupSum = 0;
+        let groupCount = 0;
+
+        while (gameNum <= groupEnd && i < scores.length) {
+          groupSum += scores[i];
+          gameNum++;
+          i++;
+          groupCount++;
+        }
+
+        grouped.push({
+          label: `総合 (${groupStart}-${groupEnd})`,
+          score: groupSum,
+          gameRange: `${groupStart}-${groupEnd}`,
+        });
+      }
+    }
+
+    return grouped;
+  }
+
+  /**
    * ゲーム状態をリセット
    */
   reset(): void {

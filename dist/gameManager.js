@@ -48,6 +48,41 @@ export class GameManager {
     getPlayerScoreHistory(playerIndex) {
         return this.players[playerIndex]?.scores || [];
     }
+    getPlayerScoreHistoryGrouped(playerIndex) {
+        const scores = this.players[playerIndex]?.scores || [];
+        const grouped = [];
+        let gameNum = 1;
+        let i = 0;
+        while (i < scores.length) {
+            if (gameNum <= 9) {
+                grouped.push({
+                    label: `ゲーム${gameNum}`,
+                    score: scores[i],
+                    gameRange: `${gameNum}`,
+                });
+                gameNum++;
+                i++;
+            }
+            else {
+                const groupStart = gameNum;
+                const groupEnd = Math.min(gameNum + 9, scores.length + gameNum - 1);
+                let groupSum = 0;
+                let groupCount = 0;
+                while (gameNum <= groupEnd && i < scores.length) {
+                    groupSum += scores[i];
+                    gameNum++;
+                    i++;
+                    groupCount++;
+                }
+                grouped.push({
+                    label: `総合 (${groupStart}-${groupEnd})`,
+                    score: groupSum,
+                    gameRange: `${groupStart}-${groupEnd}`,
+                });
+            }
+        }
+        return grouped;
+    }
     reset() {
         this.players = [];
         this.rateMultiplier = 1;

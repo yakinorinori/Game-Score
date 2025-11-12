@@ -12,6 +12,11 @@ export declare class GameManager {
     })[];
     getResults(): Player[];
     getPlayerScoreHistory(playerIndex: number): number[];
+    getPlayerScoreHistoryGrouped(playerIndex: number): {
+        label: string;
+        score: number;
+        gameRange: string;
+    }[];
     reset(): void;
     export(): any;
     getPlayers(): Player[];

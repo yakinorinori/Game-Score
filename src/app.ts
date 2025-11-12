@@ -302,21 +302,21 @@ function updateScoresDisplay(): void {
 function showPlayerHistory(playerIndex: number): void {
   const players = gameManager.getPlayers();
   const player = players[playerIndex];
-  const scores = gameManager.getPlayerScoreHistory(playerIndex);
+  const groupedHistory = gameManager.getPlayerScoreHistoryGrouped(playerIndex);
   
-  console.log(`プレイヤー: ${player.name}, スコア履歴:`, scores);
+  console.log(`プレイヤー: ${player.name}, グループ化履歴:`, groupedHistory);
   
   playerHistoryTitle.textContent = `${player.name}のゲーム履歴`;
   
   let historyHTML = '';
-  if (scores.length === 0) {
+  if (groupedHistory.length === 0) {
     historyHTML = '<p>まだゲームをプレイしていません。</p>';
   } else {
-    scores.forEach((score, gameNum) => {
+    groupedHistory.forEach((item) => {
       historyHTML += `
         <div class="game-history-item">
-          <div class="game-history-item-score">${score}</div>
-          <div class="game-history-item-detail">ゲーム${gameNum + 1}</div>
+          <div class="game-history-item-score">${item.score}</div>
+          <div class="game-history-item-detail">${item.label}</div>
         </div>
       `;
     });
