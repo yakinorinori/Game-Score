@@ -1,0 +1,367 @@
+/* ===== 基本スタイル ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 10px;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    min-height: 100vh;
+}
+
+/* ===== 画面管理 ===== */
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ===== タイトル ===== */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+h2 {
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+/* ===== セットアップ画面 ===== */
+.setup-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.setup-section label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.setup-section input {
+    width: 100px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #667eea;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#playerNamesSection {
+    margin-top: 20px;
+}
+
+.player-name-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.player-name-input input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+.player-name-input label {
+    min-width: 80px;
+    padding: 10px;
+    font-weight: 600;
+    background: #e7f3ff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+/* ===== ボタン ===== */
+.btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-success {
+    background: #48bb78;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #38a169;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+}
+
+.btn-danger {
+    background: #f56565;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #e53e3e;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(245, 101, 101, 0.4);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ===== レート設定画面 ===== */
+.rate-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.rate-section label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.rate-section input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #667eea;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.info {
+    background: #e7f3ff;
+    padding: 10px;
+    border-radius: 5px;
+    color: #2c5282;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* ===== ゲーム画面 ===== */
+.scores-display {
+    background: #f0f7ff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.scores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.score-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.score-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.score-card-name {
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.score-card-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.score-card-total {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+}
+
+/* ===== スコア入力セクション ===== */
+.input-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.score-input-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.score-input-item label {
+    min-width: 100px;
+    font-weight: 600;
+    color: #555;
+}
+
+.score-input-item input {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+.score-input-item input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* ===== ゲーム操作 ===== */
+.game-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.game-controls .btn {
+    margin: 0;
+}
+
+/* ===== 結果画面 ===== */
+.results-container {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.result-item {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #667eea;
+}
+
+.result-rank {
+    font-size: 20px;
+    margin-right: 10px;
+    min-width: 30px;
+}
+
+.result-name {
+    font-weight: 600;
+    flex: 1;
+    color: #333;
+}
+
+.result-score {
+    text-align: right;
+}
+
+.result-total {
+    font-size: 18px;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.result-rate {
+    font-size: 12px;
+    color: #999;
+}
+
+/* ===== レスポンシブデザイン ===== */
+@media (max-width: 480px) {
+    .container {
+        border-radius: 0;
+        min-height: 100vh;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .scores-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+}
