@@ -52,9 +52,20 @@ confirmRateBtn.addEventListener('click', () => {
         alert('0より大きい倍率を設定してください');
         return;
     }
+    console.log('=== ゲーム開始処理 ===');
+    console.log('入力倍率:', rate);
     gameManager.setRateMultiplier(rate);
+    console.log('倍率設定完了');
     initializeGameScreen();
+    console.log('ゲーム画面初期化完了');
     showScreen('gameScreen');
+    console.log('gameScreen表示指示完了');
+    const gameScreenElement = document.getElementById('gameScreen');
+    console.log('gameScreenElement:', gameScreenElement);
+    console.log('gameScreenクラス:', gameScreenElement?.className);
+    console.log('gameScreen内のh1:', gameScreenElement?.querySelector('h1')?.textContent);
+    console.log('scoresContainer:', scoresContainer);
+    console.log('scoreInputContainer:', scoreInputContainer);
 });
 function initializeGameScreen() {
     console.log('ゲーム画面初期化開始');
