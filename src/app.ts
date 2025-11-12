@@ -87,9 +87,10 @@ confirmCountBtn.addEventListener('click', () => {
   for (let i = 0; i < count; i++) {
     const div = document.createElement('div');
     div.className = 'player-name-input';
+    const inputId = `playerName${i}`;
     div.innerHTML = `
-            <label>プレイヤー${i + 1}</label>
-            <input type="text" class="player-name-input-field" placeholder="名前を入力" value="プレイヤー${i + 1}">
+            <label for="${inputId}">プレイヤー${i + 1}</label>
+            <input type="text" id="${inputId}" name="playerName${i}" class="player-name-input-field" placeholder="名前を入力" value="プレイヤー${i + 1}">
         `;
     playerNamesContainer.appendChild(div);
   }
@@ -185,9 +186,10 @@ function initializeGameScreen(): void {
   players.forEach((player, index) => {
     const div = document.createElement('div');
     div.className = 'score-input-item';
+    const inputId = `score${index}`;
     div.innerHTML = `
-            <label>${player.name}</label>
-            <input type="number" class="score-input-field" data-index="${index}" placeholder="スコアを入力">
+            <label for="${inputId}">${player.name}</label>
+            <input type="number" id="${inputId}" name="score${index}" class="score-input-field" data-index="${index}" placeholder="スコアを入力">
         `;
     scoreInputContainer.appendChild(div);
   });
