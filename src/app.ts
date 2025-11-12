@@ -127,12 +127,19 @@ confirmRateBtn.addEventListener('click', () => {
  * ゲーム画面を初期化
  */
 function initializeGameScreen(): void {
+  console.log('ゲーム画面初期化開始');
+  console.log('プレイヤー数:', gameManager.getPlayers().length);
+  
   // スコア表示エリアを初期化
   updateScoresDisplay();
+  console.log('スコア表示更新完了');
 
   // スコア入力フォームを初期化
   scoreInputContainer.innerHTML = '';
-  gameManager.getPlayers().forEach((player, index) => {
+  const players = gameManager.getPlayers();
+  console.log('プレイヤー情報:', players);
+  
+  players.forEach((player, index) => {
     const div = document.createElement('div');
     div.className = 'score-input-item';
     div.innerHTML = `
@@ -141,6 +148,9 @@ function initializeGameScreen(): void {
         `;
     scoreInputContainer.appendChild(div);
   });
+  
+  console.log('スコア入力フォーム生成完了');
+  console.log('scoreInputContainer個数:', scoreInputContainer.children.length);
 }
 
 /**
@@ -184,7 +194,7 @@ recordScoreBtn.addEventListener('click', () => {
   const numScores = scores.map(s => {
     const num = parseFloat(s);
     if (isNaN(num)) {
-      throw new Error(`Invalid score: ${s}`);
+      throw new Error(`無効なスコア: ${s}`);
     }
     return num;
   });
@@ -200,14 +210,14 @@ recordScoreBtn.addEventListener('click', () => {
 
     // フィードバック
     const originalText = recordScoreBtn.textContent;
-    recordScoreBtn.textContent = 'Recorded!';
+    recordScoreBtn.textContent = '✓ 記録完了';
     recordScoreBtn.disabled = true;
     setTimeout(() => {
       recordScoreBtn.textContent = originalText;
       recordScoreBtn.disabled = false;
     }, 1000);
   } catch (error) {
-    alert('Error: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    alert('エラー: ' + (error instanceof Error ? error.message : '不明なエラー'));
   }
 });
 
@@ -230,8 +240,8 @@ function showResults(): void {
     const div = document.createElement('div');
     div.className = 'result-item';
 
-    const rankLabels = ['1st', '2nd', '3rd'];
-    const rankText = rankLabels[rank] || `${rank + 1}th`;
+    const rankLabels = ['1位', '2位', '3位'];
+    const rankText = rankLabels[rank] || `${rank + 1}位`;
 
     div.innerHTML = `
             <span class="result-rank">${rankText}</span>
@@ -239,10 +249,10 @@ function showResults(): void {
             <div class="result-score">
                 <div class="result-total">${player.finalScore}</div>
                 <div class="result-rate">
-                    ${player.totalScore}points
+                    ${player.totalScore}点
                     ${
                       gameManager.getRateMultiplier() !== 1
-                        ? `x ${gameManager.getRateMultiplier()}`
+                        ? `× ${gameManager.getRateMultiplier()}倍`
                         : ''
                     }
                 </div>
@@ -264,4 +274,4 @@ restartBtn.addEventListener('click', () => {
 });
 
 // ===== 初期化 =====
-console.log('Game Score Recording App started');
+console.log('ゲームスコア記録アプリ起動');

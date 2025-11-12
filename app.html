@@ -10,60 +10,60 @@
     <div class="container">
         <!-- Initial Setup Screen -->
         <div id="setupScreen" class="screen active">
-            <h1>Game Score Recorder</h1>
+            <h1>ゲームスコア記録アプリ</h1>
             
             <div class="setup-section">
-                <label for="playerCount">Number of Players:</label>
+                <label for="playerCount">プレイヤー数:</label>
                 <input type="number" id="playerCount" min="1" max="10" value="2">
-                <button id="confirmCountBtn" class="btn btn-primary">Confirm</button>
+                <button id="confirmCountBtn" class="btn btn-primary">確定</button>
             </div>
 
             <div id="playerNamesSection" class="hidden">
-                <h2>Enter Player Names</h2>
+                <h2>プレイヤー名入力</h2>
                 <div id="playerNamesContainer"></div>
-                <button id="startGameBtn" class="btn btn-success">Start Game</button>
+                <button id="startGameBtn" class="btn btn-success">ゲーム開始</button>
             </div>
         </div>
 
         <!-- Rate Setting Screen -->
         <div id="rateScreen" class="screen hidden">
-            <h1>Score Multiplier Settings</h1>
+            <h1>スコア倍率設定</h1>
             <div class="rate-section">
-                <label for="rateMultiplier">Score Multiplier (final score x):</label>
+                <label for="rateMultiplier">スコア倍率 (最終スコア × 倍率):</label>
                 <input type="number" id="rateMultiplier" min="0.1" step="0.1" value="1">
-                <p class="info">Example: 1 Win = 100 points x 2x = 200 points</p>
+                <p class="info">例: 1勝100点 × 2倍 = 200点</p>
             </div>
-            <button id="confirmRateBtn" class="btn btn-success">Start Game</button>
+            <button id="confirmRateBtn" class="btn btn-success">ゲーム開始</button>
         </div>
 
         <!-- Game Screen -->
         <div id="gameScreen" class="screen hidden">
-            <h1>Game In Progress</h1>
+            <h1>ゲーム進行中</h1>
             
             <!-- Current Score Display -->
             <div class="scores-display">
-                <h2>Current Scores</h2>
+                <h2>現在のスコア</h2>
                 <div id="scoresContainer" class="scores-grid"></div>
             </div>
 
             <!-- Score Input Section -->
             <div class="input-section">
-                <h2>Enter Scores</h2>
+                <h2>スコア入力</h2>
                 <div id="scoreInputContainer"></div>
-                <button id="recordScoreBtn" class="btn btn-primary">Record Score</button>
+                <button id="recordScoreBtn" class="btn btn-primary">スコア記録</button>
             </div>
 
             <!-- Game Control Buttons -->
             <div class="game-controls">
-                <button id="endGameBtn" class="btn btn-danger">End Game</button>
+                <button id="endGameBtn" class="btn btn-danger">ゲーム終了</button>
             </div>
         </div>
 
         <!-- Results Screen -->
         <div id="resultScreen" class="screen hidden">
-            <h1>Game Over</h1>
+            <h1>ゲーム終了</h1>
             <div id="finalResults" class="results-container"></div>
-            <button id="restartBtn" class="btn btn-primary">Play Again</button>
+            <button id="restartBtn" class="btn btn-primary">もう一度プレイ</button>
         </div>
     </div>
 
