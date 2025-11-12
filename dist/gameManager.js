@@ -51,35 +51,37 @@ export class GameManager {
     getPlayerScoreHistoryGrouped(playerIndex) {
         const scores = this.players[playerIndex]?.scores || [];
         const grouped = [];
-        let gameNum = 1;
+        if (scores.length === 0) {
+            return grouped;
+        }
         let i = 0;
-        while (i < scores.length) {
-            if (gameNum <= 9) {
-                grouped.push({
-                    label: `ゲーム${gameNum}`,
-                    score: scores[i],
-                    gameRange: `${gameNum}`,
-                });
+        let gameNum = 1;
+        const totalGames = scores.length;
+        while (i < scores.length - 5) {
+            const groupStart = gameNum;
+            const groupEnd = Math.min(gameNum + 4, totalGames - 5);
+            let groupSum = 0;
+            let count = 0;
+            while (i < scores.length - 5 && count < 5) {
+                groupSum += scores[i];
                 gameNum++;
                 i++;
+                count++;
             }
-            else {
-                const groupStart = gameNum;
-                const groupEnd = Math.min(gameNum + 9, scores.length + gameNum - 1);
-                let groupSum = 0;
-                let groupCount = 0;
-                while (gameNum <= groupEnd && i < scores.length) {
-                    groupSum += scores[i];
-                    gameNum++;
-                    i++;
-                    groupCount++;
-                }
-                grouped.push({
-                    label: `総合 (${groupStart}-${groupEnd})`,
-                    score: groupSum,
-                    gameRange: `${groupStart}-${groupEnd}`,
-                });
-            }
+            grouped.push({
+                label: `合計 (${groupStart}-${groupEnd})`,
+                score: groupSum,
+                gameRange: `${groupStart}-${groupEnd}`,
+            });
+        }
+        while (i < scores.length) {
+            grouped.push({
+                label: `ゲーム${gameNum}`,
+                score: scores[i],
+                gameRange: `${gameNum}`,
+            });
+            gameNum++;
+            i++;
         }
         return grouped;
     }

@@ -103,39 +103,46 @@ export class GameManager {
     const scores = this.players[playerIndex]?.scores || [];
     const grouped: { label: string; score: number; gameRange: string }[] = [];
 
-    let gameNum = 1;
-    let i = 0;
+    if (scores.length === 0) {
+      return grouped;
+    }
 
-    while (i < scores.length) {
-      // 最初の9ゲーム（1～9）は個別に表示
-      if (gameNum <= 9) {
-        grouped.push({
-          label: `ゲーム${gameNum}`,
-          score: scores[i],
-          gameRange: `${gameNum}`,
-        });
+    // 古いゲームから処理
+    let i = 0;
+    let gameNum = 1;
+    const totalGames = scores.length;
+
+    // 古いゲーム: 最後に5ゲーム残すまでを処理
+    while (i < scores.length - 5) {
+      // 古いゲームは5ゲームずつまとめる
+      const groupStart = gameNum;
+      const groupEnd = Math.min(gameNum + 4, totalGames - 5);
+      let groupSum = 0;
+      let count = 0;
+
+      while (i < scores.length - 5 && count < 5) {
+        groupSum += scores[i];
         gameNum++;
         i++;
-      } else {
-        // 10ゲーム以降はグループ化
-        const groupStart = gameNum;
-        const groupEnd = Math.min(gameNum + 9, scores.length + gameNum - 1);
-        let groupSum = 0;
-        let groupCount = 0;
-
-        while (gameNum <= groupEnd && i < scores.length) {
-          groupSum += scores[i];
-          gameNum++;
-          i++;
-          groupCount++;
-        }
-
-        grouped.push({
-          label: `総合 (${groupStart}-${groupEnd})`,
-          score: groupSum,
-          gameRange: `${groupStart}-${groupEnd}`,
-        });
+        count++;
       }
+
+      grouped.push({
+        label: `合計 (${groupStart}-${groupEnd})`,
+        score: groupSum,
+        gameRange: `${groupStart}-${groupEnd}`,
+      });
+    }
+
+    // 新しいゲーム: 最後の5ゲームは個別に表示
+    while (i < scores.length) {
+      grouped.push({
+        label: `ゲーム${gameNum}`,
+        score: scores[i],
+        gameRange: `${gameNum}`,
+      });
+      gameNum++;
+      i++;
     }
 
     return grouped;
