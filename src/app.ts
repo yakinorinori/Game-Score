@@ -104,9 +104,16 @@ startGameBtn.addEventListener('click', () => {
  * レート確定
  */
 confirmRateBtn.addEventListener('click', () => {
-  const rate = parseFloat(rateMultiplierInput.value);
+  const rateValue = rateMultiplierInput.value.trim();
+  
+  if (!rateValue) {
+    alert('倍率を入力してください');
+    return;
+  }
 
-  if (rate <= 0) {
+  const rate = parseFloat(rateValue);
+
+  if (isNaN(rate) || rate <= 0) {
     alert('0より大きい倍率を設定してください');
     return;
   }
@@ -165,7 +172,7 @@ recordScoreBtn.addEventListener('click', () => {
   const scoreInputs = document.querySelectorAll(
     '.score-input-field'
   ) as NodeListOf<HTMLInputElement>;
-  const scores = Array.from(scoreInputs).map((input) => input.value);
+  const scores = Array.from(scoreInputs).map((input) => input.value.trim());
 
   // 入力値を検証
   if (scores.some((s) => s === '')) {
@@ -173,8 +180,17 @@ recordScoreBtn.addEventListener('click', () => {
     return;
   }
 
+  // 数値の妥当性を検証
+  const numScores = scores.map(s => {
+    const num = parseFloat(s);
+    if (isNaN(num)) {
+      throw new Error(`Invalid score: ${s}`);
+    }
+    return num;
+  });
+
   try {
-    gameManager.recordScores(scores);
+    gameManager.recordScores(numScores);
     updateScoresDisplay();
 
     // 入力フォームをリセット
@@ -183,12 +199,15 @@ recordScoreBtn.addEventListener('click', () => {
     });
 
     // フィードバック
-    recordScoreBtn.textContent = '✓ 記録完了';
+    const originalText = recordScoreBtn.textContent;
+    recordScoreBtn.textContent = 'Recorded!';
+    recordScoreBtn.disabled = true;
     setTimeout(() => {
-      recordScoreBtn.textContent = 'スコア記録';
+      recordScoreBtn.textContent = originalText;
+      recordScoreBtn.disabled = false;
     }, 1000);
   } catch (error) {
-    alert('エラー: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    alert('Error: ' + (error instanceof Error ? error.message : 'Unknown error'));
   }
 });
 
@@ -211,20 +230,19 @@ function showResults(): void {
     const div = document.createElement('div');
     div.className = 'result-item';
 
-    let rankEmoji = '🥇';
-    if (rank === 1) rankEmoji = '🥈';
-    if (rank === 2) rankEmoji = '🥉';
+    const rankLabels = ['1st', '2nd', '3rd'];
+    const rankText = rankLabels[rank] || `${rank + 1}th`;
 
     div.innerHTML = `
-            <span class="result-rank">${rankEmoji}</span>
+            <span class="result-rank">${rankText}</span>
             <span class="result-name">${player.name}</span>
             <div class="result-score">
                 <div class="result-total">${player.finalScore}</div>
                 <div class="result-rate">
-                    ${player.totalScore}点
+                    ${player.totalScore}points
                     ${
                       gameManager.getRateMultiplier() !== 1
-                        ? `× ${gameManager.getRateMultiplier()}倍`
+                        ? `x ${gameManager.getRateMultiplier()}`
                         : ''
                     }
                 </div>
@@ -246,4 +264,4 @@ restartBtn.addEventListener('click', () => {
 });
 
 // ===== 初期化 =====
-console.log('🎮 ゲームスコア記録アプリ起動');
+console.log('Game Score Recording App started');
