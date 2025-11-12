@@ -1,11 +1,20 @@
 export function showScreen(screenId) {
+    console.log(`[showScreen] 画面切り替え: ${screenId}`);
     const screens = document.querySelectorAll('.screen');
+    console.log(`[showScreen] 全スクリーン数: ${screens.length}`);
     screens.forEach((screen) => {
         screen.classList.remove('active');
+        screen.classList.remove('hidden');
     });
     const screen = document.getElementById(screenId);
+    console.log(`[showScreen] 対象スクリーン: `, screen);
     if (screen) {
         screen.classList.add('active');
+        screen.classList.remove('hidden');
+        console.log(`[showScreen] ${screenId} にクラス 'active' を追加、'hidden' を削除`);
+    }
+    else {
+        console.error(`[showScreen] エラー: ${screenId} が見つかりません`);
     }
 }
 export function toggleElement(elementId, show) {
