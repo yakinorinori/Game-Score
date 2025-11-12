@@ -13,8 +13,24 @@ const recordScoreBtn = document.getElementById('recordScoreBtn');
 const endGameBtn = document.getElementById('endGameBtn');
 const finalResults = document.getElementById('finalResults');
 const restartBtn = document.getElementById('restartBtn');
+console.log('=== DOM要素の確認 ===');
+console.log('playerCountInput:', playerCountInput);
+console.log('confirmCountBtn:', confirmCountBtn);
+console.log('startGameBtn:', startGameBtn);
+console.log('confirmRateBtn:', confirmRateBtn);
+console.log('recordScoreBtn:', recordScoreBtn);
+console.log('endGameBtn:', endGameBtn);
+console.log('=== イベントリスナー登録開始 ===');
+if (!startGameBtn) {
+    console.error('ERROR: startGameBtn が見つかりません');
+}
+else {
+    console.log('OK: startGameBtn が見つかりました');
+}
 confirmCountBtn.addEventListener('click', () => {
+    console.log('[EVENT] confirmCountBtn クリック');
     const count = parseInt(playerCountInput.value);
+    console.log('入力プレイヤー数:', count);
     if (count < 1 || count > 10) {
         alert('1～10人の範囲で設定してください');
         return;
@@ -29,17 +45,24 @@ confirmCountBtn.addEventListener('click', () => {
         `;
         playerNamesContainer.appendChild(div);
     }
+    console.log('プレイヤー名入力フォーム生成完了');
     toggleElement('playerNamesSection', true);
+    console.log('playerNamesSection表示');
 });
 startGameBtn.addEventListener('click', () => {
+    console.log('[EVENT] startGameBtn クリック');
     const nameInputs = document.querySelectorAll('.player-name-input-field');
+    console.log('名前入力フィールド数:', nameInputs.length);
     const names = Array.from(nameInputs).map((input) => input.value.trim() || 'プレイヤー');
+    console.log('入力プレイヤー名:', names);
     if (names.length === 0) {
         alert('プレイヤー数が不正です');
         return;
     }
     gameManager.initializePlayers(names);
+    console.log('ゲーム管理に名前登録完了');
     showScreen('rateScreen');
+    console.log('rateScreen表示指示');
 });
 confirmRateBtn.addEventListener('click', () => {
     const rateValue = rateMultiplierInput.value.trim();
