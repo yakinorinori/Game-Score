@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ゲームスコア記録アプリ</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 初期設定画面 -->
+        <div id="setupScreen" class="screen active">
+            <h1>🎮 ゲームスコア記録</h1>
+            
+            <div class="setup-section">
+                <label for="playerCount">プレイヤー数：</label>
+                <input type="number" id="playerCount" min="1" max="10" value="2">
+                <button id="confirmCountBtn" class="btn btn-primary">確定</button>
+            </div>
+
+            <div id="playerNamesSection" class="hidden">
+                <h2>プレイヤー名を入力</h2>
+                <div id="playerNamesContainer"></div>
+                <button id="startGameBtn" class="btn btn-success">ゲーム開始</button>
+            </div>
+        </div>
+
+        <!-- レート設定画面 -->
+        <div id="rateScreen" class="screen hidden">
+            <h1>⚙️ スコアレート設定</h1>
+            <div class="rate-section">
+                <label for="rateMultiplier">スコア倍率（最終スコアに×）：</label>
+                <input type="number" id="rateMultiplier" min="0.1" step="0.1" value="1">
+                <p class="info">例：1勝=100点 × 2倍 = 200点</p>
+            </div>
+            <button id="confirmRateBtn" class="btn btn-success">ゲーム開始</button>
+        </div>
+
+        <!-- ゲーム画面 -->
+        <div id="gameScreen" class="screen hidden">
+            <h1>🎯 ゲーム進行中</h1>
+            
+            <!-- 現在のスコア表示 -->
+            <div class="scores-display">
+                <h2>現在のスコア</h2>
+                <div id="scoresContainer" class="scores-grid"></div>
+            </div>
+
+            <!-- スコア入力セクション -->
+            <div class="input-section">
+                <h2>スコア入力</h2>
+                <div id="scoreInputContainer"></div>
+                <button id="recordScoreBtn" class="btn btn-primary">スコア記録</button>
+            </div>
+
+            <!-- ゲーム管理ボタン -->
+            <div class="game-controls">
+                <button id="endGameBtn" class="btn btn-danger">ゲーム終了</button>
+            </div>
+        </div>
+
+        <!-- 結果画面 -->
+        <div id="resultScreen" class="screen hidden">
+            <h1>🏆 ゲーム終了</h1>
+            <div id="finalResults" class="results-container"></div>
+            <button id="restartBtn" class="btn btn-primary">もう一度</button>
+        </div>
+    </div>
+
+    <script type="module" src="dist/app.js"></script>
+</body>
+</html>
