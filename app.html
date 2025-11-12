@@ -52,22 +52,28 @@
         <div id="gameScreen" class="screen hidden">
             <h1>ゲーム進行中</h1>
             
-            <!-- Current Score Display -->
-            <div class="scores-display">
-                <h2>現在のスコア</h2>
-                <div id="scoresContainer" class="scores-grid"></div>
+            <!-- Winner Selection -->
+            <div id="winnerSelectionSection" class="winner-section">
+                <h2>勝者を選択</h2>
+                <div id="winnerButtonsContainer" class="winner-buttons-grid"></div>
             </div>
 
             <!-- Score Input Section -->
-            <div class="input-section">
-                <h2>スコア入力</h2>
+            <div id="scoreInputSection" class="input-section hidden">
+                <h2>スコア入力（勝者以外）</h2>
+                <p class="info">正の値を入力してください。勝者のスコアは自動計算されます。</p>
                 <div id="scoreInputContainer"></div>
                 <button id="recordScoreBtn" class="btn btn-primary">スコア記録</button>
             </div>
 
-            <!-- Game Control Buttons -->
-            <div class="game-controls">
-                <button id="endGameBtn" class="btn btn-danger">ゲーム終了</button>
+            <!-- Current Score Display -->
+            <div id="scoresDisplaySection" class="scores-display hidden">
+                <h2>現在のスコア</h2>
+                <div id="scoresContainer" class="scores-grid"></div>
+                <div class="game-controls">
+                    <button id="nextGameBtn" class="btn btn-primary">次のゲーム</button>
+                    <button id="endGameBtn" class="btn btn-danger">ゲーム終了</button>
+                </div>
             </div>
         </div>
 
@@ -76,6 +82,20 @@
             <h1>ゲーム終了</h1>
             <div id="finalResults" class="results-container"></div>
             <button id="restartBtn" class="btn btn-primary">もう一度プレイ</button>
+        </div>
+    </div>
+
+    <!-- Player History Modal -->
+    <div id="playerHistoryModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="playerHistoryTitle"></h2>
+                <button id="closeModalBtn" class="modal-close">&times;</button>
+            </div>
+            <div id="playerHistoryBody" class="modal-body"></div>
+            <div class="modal-footer">
+                <button id="closeModalBtnBottom" class="btn btn-primary">閉じる</button>
+            </div>
         </div>
     </div>
 

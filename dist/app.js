@@ -11,8 +11,19 @@ const scoresContainer = document.getElementById('scoresContainer');
 const scoreInputContainer = document.getElementById('scoreInputContainer');
 const recordScoreBtn = document.getElementById('recordScoreBtn');
 const endGameBtn = document.getElementById('endGameBtn');
+const nextGameBtn = document.getElementById('nextGameBtn');
+const winnerButtonsContainer = document.getElementById('winnerButtonsContainer');
+const winnerSelectionSection = document.getElementById('winnerSelectionSection');
+const scoreInputSection = document.getElementById('scoreInputSection');
+const scoresDisplaySection = document.getElementById('scoresDisplaySection');
 const finalResults = document.getElementById('finalResults');
 const restartBtn = document.getElementById('restartBtn');
+const playerHistoryModal = document.getElementById('playerHistoryModal');
+const playerHistoryTitle = document.getElementById('playerHistoryTitle');
+const playerHistoryBody = document.getElementById('playerHistoryBody');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const closeModalBtnBottom = document.getElementById('closeModalBtnBottom');
+let currentWinnerId = -1;
 console.log('=== DOM要素の確認 ===');
 console.log('playerCountInput:', playerCountInput);
 console.log('confirmCountBtn:', confirmCountBtn);
@@ -94,29 +105,57 @@ confirmRateBtn.addEventListener('click', () => {
 function initializeGameScreen() {
     console.log('ゲーム画面初期化開始');
     console.log('プレイヤー数:', gameManager.getPlayers().length);
-    updateScoresDisplay();
-    console.log('スコア表示更新完了');
+    currentWinnerId = -1;
+    winnerButtonsContainer.innerHTML = '';
+    const players = gameManager.getPlayers();
+    players.forEach((player, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-primary winner-btn';
+        btn.textContent = player.name;
+        btn.addEventListener('click', () => selectWinner(index));
+        winnerButtonsContainer.appendChild(btn);
+    });
+    winnerSelectionSection.classList.remove('hidden');
+    scoreInputSection.classList.add('hidden');
+    scoresDisplaySection.classList.add('hidden');
+    console.log('ゲーム画面初期化完了');
+}
+function selectWinner(index) {
+    console.log('勝者選択:', index);
+    currentWinnerId = index;
+    const buttons = winnerButtonsContainer.querySelectorAll('.winner-btn');
+    buttons.forEach((btn, i) => {
+        if (i === index) {
+            btn.classList.add('selected');
+        }
+        else {
+            btn.classList.remove('selected');
+        }
+    });
     scoreInputContainer.innerHTML = '';
     const players = gameManager.getPlayers();
-    console.log('プレイヤー情報:', players);
-    players.forEach((player, index) => {
-        const div = document.createElement('div');
-        div.className = 'score-input-item';
-        const inputId = `score${index}`;
-        div.innerHTML = `
-            <label for="${inputId}">${player.name}</label>
-            <input type="number" id="${inputId}" name="score${index}" class="score-input-field" data-index="${index}" placeholder="スコアを入力">
-        `;
-        scoreInputContainer.appendChild(div);
+    players.forEach((player, playerIndex) => {
+        if (playerIndex !== index) {
+            const div = document.createElement('div');
+            div.className = 'score-input-item';
+            const inputId = `score${playerIndex}`;
+            div.innerHTML = `
+              <label for="${inputId}">${player.name}</label>
+              <input type="number" id="${inputId}" name="score${playerIndex}" class="score-input-field" data-index="${playerIndex}" min="0" placeholder="正の値を入力">
+          `;
+            scoreInputContainer.appendChild(div);
+        }
     });
-    console.log('スコア入力フォーム生成完了');
-    console.log('scoreInputContainer個数:', scoreInputContainer.children.length);
+    winnerSelectionSection.classList.add('hidden');
+    scoreInputSection.classList.remove('hidden');
+    console.log('スコア入力フォーム準備完了');
 }
 function updateScoresDisplay() {
     scoresContainer.innerHTML = '';
-    gameManager.getCurrentScores().forEach((player) => {
+    gameManager.getCurrentScores().forEach((player, index) => {
         const div = document.createElement('div');
-        div.className = 'score-card';
+        div.className = 'score-card clickable';
+        div.style.cursor = 'pointer';
         div.innerHTML = `
             <div class="score-card-name">${player.name}</div>
             <div class="score-card-value">${player.totalScore}</div>
@@ -125,29 +164,81 @@ function updateScoresDisplay() {
             ? `<div class="score-card-total">最終: ${player.finalScore}</div>`
             : ''}
         `;
+        div.addEventListener('click', () => showPlayerHistory(index));
         scoresContainer.appendChild(div);
     });
 }
+function showPlayerHistory(playerIndex) {
+    const players = gameManager.getPlayers();
+    const player = players[playerIndex];
+    const scores = gameManager.getPlayerScoreHistory(playerIndex);
+    console.log(`プレイヤー: ${player.name}, スコア履歴:`, scores);
+    playerHistoryTitle.textContent = `${player.name}のゲーム履歴`;
+    let historyHTML = '';
+    if (scores.length === 0) {
+        historyHTML = '<p>まだゲームをプレイしていません。</p>';
+    }
+    else {
+        scores.forEach((score, gameNum) => {
+            historyHTML += `
+        <div class="game-history-item">
+          <div class="game-history-item-score">${score}</div>
+          <div class="game-history-item-detail">ゲーム${gameNum + 1}</div>
+        </div>
+      `;
+        });
+    }
+    playerHistoryBody.innerHTML = historyHTML;
+    playerHistoryModal.classList.add('active');
+    playerHistoryModal.classList.remove('hidden');
+}
 recordScoreBtn.addEventListener('click', () => {
+    if (currentWinnerId === -1) {
+        alert('勝者を選択してください');
+        return;
+    }
     const scoreInputs = document.querySelectorAll('.score-input-field');
-    const scores = Array.from(scoreInputs).map((input) => input.value.trim());
-    if (scores.some((s) => s === '')) {
+    const scoreValues = Array.from(scoreInputs).map((input) => input.value.trim());
+    if (scoreValues.some((s) => s === '')) {
         alert('すべてのプレイヤーのスコアを入力してください');
         return;
     }
-    const numScores = scores.map(s => {
+    const numScores = scoreValues.map(s => {
         const num = parseFloat(s);
         if (isNaN(num)) {
             throw new Error(`無効なスコア: ${s}`);
         }
+        if (num < 0) {
+            throw new Error('正の値のみ入力してください');
+        }
         return num;
     });
     try {
-        gameManager.recordScores(numScores);
+        const finalScores = [];
+        const allPlayers = gameManager.getPlayers();
+        let scoreIndex = 0;
+        let loserTotal = 0;
+        for (let i = 0; i < allPlayers.length; i++) {
+            if (i === currentWinnerId) {
+                finalScores.push(0);
+            }
+            else {
+                const negativeScore = -numScores[scoreIndex];
+                finalScores.push(negativeScore);
+                loserTotal += numScores[scoreIndex];
+                scoreIndex++;
+            }
+        }
+        finalScores[currentWinnerId] = loserTotal;
+        console.log('入力スコア:', numScores);
+        console.log('最終スコア:', finalScores);
+        gameManager.recordScores(finalScores);
         updateScoresDisplay();
         scoreInputs.forEach((input) => {
             input.value = '';
         });
+        scoreInputSection.classList.add('hidden');
+        scoresDisplaySection.classList.remove('hidden');
         const originalText = recordScoreBtn.textContent;
         recordScoreBtn.textContent = '✓ 記録完了';
         recordScoreBtn.disabled = true;
@@ -160,7 +251,15 @@ recordScoreBtn.addEventListener('click', () => {
         alert('エラー: ' + (error instanceof Error ? error.message : '不明なエラー'));
     }
 });
+nextGameBtn.addEventListener('click', () => {
+    console.log('次のゲーム開始');
+    currentWinnerId = -1;
+    winnerSelectionSection.classList.remove('hidden');
+    scoreInputSection.classList.add('hidden');
+    scoresDisplaySection.classList.add('hidden');
+});
 endGameBtn.addEventListener('click', () => {
+    console.log('ゲーム終了');
     showResults();
     showScreen('resultScreen');
 });
@@ -194,6 +293,21 @@ restartBtn.addEventListener('click', () => {
     playerCountInput.value = '2';
     playerNamesSection.classList.add('hidden');
     showScreen('setupScreen');
+});
+function closePlayerHistoryModal() {
+    playerHistoryModal.classList.remove('active');
+    playerHistoryModal.classList.add('hidden');
+}
+closeModalBtn.addEventListener('click', () => {
+    closePlayerHistoryModal();
+});
+closeModalBtnBottom.addEventListener('click', () => {
+    closePlayerHistoryModal();
+});
+playerHistoryModal.addEventListener('click', (e) => {
+    if (e.target === playerHistoryModal) {
+        closePlayerHistoryModal();
+    }
 });
 console.log('ゲームスコア記録アプリ起動');
 window.addEventListener('error', (event) => {
