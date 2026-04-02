@@ -140,6 +140,24 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeContactForm();
     initializeSmoothScroll();
     initializePopupCardClick();
+    handleImageLoading();
     console.log('Company website initialized');
 });
+function handleImageLoading() {
+    const images = document.querySelectorAll('img');
+    images.forEach((img) => {
+        if (img.complete) {
+            img.style.animation = 'none';
+            img.style.background = 'none';
+        }
+        img.addEventListener('load', () => {
+            img.style.animation = 'none';
+            img.style.background = 'none';
+        });
+        img.addEventListener('error', () => {
+            img.style.animation = 'none';
+            img.style.background = 'none';
+        });
+    });
+}
 //# sourceMappingURL=main.js.map

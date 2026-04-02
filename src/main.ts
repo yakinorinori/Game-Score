@@ -220,5 +220,35 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSmoothScroll();
     initializePopupCardClick();
     
+    // 画像読み込み完了時のアニメーション削除
+    handleImageLoading();
+    
     console.log('Company website initialized');
 });
+
+/**
+ * 画像読み込み完了時のアニメーション処理
+ */
+function handleImageLoading(): void {
+    const images = document.querySelectorAll('img');
+    
+    images.forEach((img: HTMLImageElement) => {
+        // 既にキャッシュから読み込まれている場合
+        if (img.complete) {
+            img.style.animation = 'none';
+            img.style.background = 'none';
+        }
+        
+        // 読み込み完了時
+        img.addEventListener('load', () => {
+            img.style.animation = 'none';
+            img.style.background = 'none';
+        });
+        
+        // エラー時もアニメーション削除
+        img.addEventListener('error', () => {
+            img.style.animation = 'none';
+            img.style.background = 'none';
+        });
+    });
+}
