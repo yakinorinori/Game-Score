@@ -1,0 +1,25 @@
+{
+  "name": "company-website",
+  "version": "1.0.0",
+  "description": "企業ウェブサイト",
+  "homepage": "https://yakinorinori.github.io/ALBACompanyWebsite/",
+  "main": "index.html",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "start": "tsc && python3 -m http.server 8000",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d ."
+  },
+  "keywords": [
+    "company",
+    "website",
+    "corporate"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "typescript": "^5.3.3"
+  }
+}
