@@ -729,75 +729,149 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Contact Section */
 .contact {
-    background: linear-gradient(135deg, var(--light-bg) 0%, var(--white) 100%);
+    background: linear-gradient(135deg, #F0F6FE 0%, #E8F0FA 50%, #F5F9FE 100%);
+    position: relative;
+}
+
+.contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse 800px 400px at 50% 0%, rgba(59, 154, 245, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.contact .container {
+    position: relative;
+    z-index: 2;
+}
+
+.contact h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
 }
 
 .contact-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
     margin: 2rem 0 4rem;
+    position: relative;
+    z-index: 2;
 }
 
 .neon-card {
-    background: var(--white);
-    border: 2px solid var(--primary-color);
-    border-radius: 16px;
-    padding: 2rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 249, 254, 0.9) 100%);
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
     text-align: center;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
+    box-shadow: 
+        0 10px 30px rgba(59, 154, 245, 0.12),
+        inset 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .neon-card::before {
     content: '';
     position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(59, 154, 245, 0.1) 0%, transparent 70%);
+    top: -100%;
+    left: -100%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        rgba(59, 154, 245, 0) 0%,
+        rgba(59, 154, 245, 0.1) 50%,
+        rgba(59, 154, 245, 0) 100%
+    );
     pointer-events: none;
+    transition: all 0.6s ease;
+}
+
+.neon-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        rgba(59, 154, 245, 0.3) 0%,
+        rgba(0, 82, 204, 0.2) 50%,
+        rgba(59, 154, 245, 0.1) 100%
+    );
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .neon-card:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-8px);
-    border-color: var(--accent-color);
+    box-shadow: 
+        0 20px 40px rgba(59, 154, 245, 0.25),
+        0 0 40px rgba(59, 154, 245, 0.15),
+        inset 0 0 20px rgba(255, 255, 255, 0.8);
+    transform: translateY(-12px) scale(1.02);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(245, 249, 254, 0.95) 100%);
+}
+
+.neon-card:hover::after {
+    opacity: 1;
 }
 
 .neon-icon {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
     display: flex;
     justify-content: center;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .neon-icon img {
-    width: 80px;
-    height: 80px;
-    filter: drop-shadow(0 0 8px rgba(59, 154, 245, 0.6));
+    width: 90px;
+    height: 90px;
+    filter: drop-shadow(0 0 12px rgba(59, 154, 245, 0.5)) drop-shadow(0 0 24px rgba(59, 154, 245, 0.25));
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.neon-card:hover .neon-icon img {
+    filter: drop-shadow(0 0 16px rgba(59, 154, 245, 0.8)) drop-shadow(0 0 32px rgba(59, 154, 245, 0.4));
+    transform: scale(1.1) rotate(5deg);
 }
 
 .neon-content p {
     color: var(--text-dark);
     font-size: 1.1rem;
     font-weight: 600;
-    line-height: 1.6;
+    line-height: 1.8;
     font-family: var(--jp-font);
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    letter-spacing: 0.3px;
+    transition: color 0.4s ease;
+}
+
+.neon-card:hover .neon-content p {
+    color: var(--secondary-color);
 }
 
 /* Contact Form */
 .contact-form {
     max-width: 700px;
     margin: 0 auto;
-    background: var(--white);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 249, 254, 0.9) 100%);
     padding: 3rem 2rem;
     border-radius: 12px;
     box-shadow: var(--shadow);
@@ -824,13 +898,14 @@ h1, h2, h3, h4, h5, h6 {
 .form-group textarea,
 .form-group select {
     width: 100%;
-    padding: 0.9rem;
+    padding: 0.95rem 1rem;
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 10px;
     font-family: var(--jp-font);
     font-size: 1rem;
-    transition: all 0.3s ease;
-    background: var(--white);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 249, 254, 0.8) 100%);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .form-group input:focus,
@@ -838,8 +913,11 @@ h1, h2, h3, h4, h5, h6 {
 .form-group select:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(59, 154, 245, 0.15);
-    background: rgba(245, 249, 254, 0.8);
+    box-shadow: 
+        0 0 0 5px rgba(59, 154, 245, 0.2),
+        inset 0 2px 8px rgba(59, 154, 245, 0.08);
+    background: rgba(245, 249, 254, 1);
+    transform: translateY(-1px);
 }
 
 .form-group input::placeholder,
@@ -851,48 +929,61 @@ h1, h2, h3, h4, h5, h6 {
 /* Buttons */
 .btn {
     display: inline-block;
-    padding: 0.9rem 2rem;
+    padding: 1rem 2.2rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
     font-family: var(--jp-font);
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 82, 204, 0.2);
 }
 
 .btn::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    transition: left 0.3s ease;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
 }
 
 .btn:hover::before {
-    left: 100%;
+    width: 300px;
+    height: 300px;
 }
 
 .btn-primary {
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
     color: white;
-    box-shadow: var(--shadow);
+    box-shadow: 
+        0 10px 25px rgba(0, 82, 204, 0.25),
+        0 0 40px rgba(59, 154, 245, 0.0);
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 15px 40px rgba(0, 82, 204, 0.35),
+        0 0 60px rgba(59, 154, 245, 0.25);
+    background: linear-gradient(135deg, #0039A0 0%, #2B8DF0 100%);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
 }
 
 .btn-large {
-    padding: 1.1rem 2.5rem;
+    padding: 1.3rem 2.8rem;
     font-size: 1.1rem;
 }
 
