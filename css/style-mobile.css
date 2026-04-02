@@ -91,14 +91,19 @@
 }
 
 .popup-image {
-    height: 90px;
+    height: 100px;
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .popup-image img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+    width: 70px;
+    height: 70px;
+    max-width: 70px;
+    max-height: 70px;
+    object-fit: contain;
 }
 
 .popup-title-en {
