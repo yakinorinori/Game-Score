@@ -170,48 +170,70 @@
 
 .profile-info {
     padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.95);
+    background: linear-gradient(135deg, rgba(13, 27, 42, 0.95) 0%, rgba(15, 35, 55, 0.9) 100%);
     border-radius: 12px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(59, 154, 245, 0.2);
 }
 
 .profile-info h3 {
     font-size: 1.4rem;
     margin-bottom: 0.8rem;
+    color: white;
+    font-weight: 700;
 }
 
-.profile-info p,
-.info-list li {
+.profile-info p {
+    color: rgba(255, 255, 255, 0.9);
     font-size: 0.95rem;
     line-height: 1.6;
 }
 
 .info-list {
     margin-top: 1rem;
+    list-style: none;
+    padding-left: 0;
 }
 
 .info-list li {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+    line-height: 1.6;
     margin-bottom: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(59, 154, 245, 0.2);
+}
+
+.info-list li:last-child {
+    border-bottom: none;
+}
+
+.info-list strong {
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
 .profile-mission {
     padding: 1.5rem;
-    background: rgba(59, 154, 245, 0.08);
+    background: linear-gradient(135deg, rgba(240, 249, 254, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
     border-left: 4px solid var(--primary-color);
     margin-top: 1.5rem;
     border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .profile-mission h3 {
     font-size: 1.2rem;
     color: var(--secondary-color);
     margin-bottom: 0.8rem;
+    font-weight: 700;
 }
 
 .profile-mission p {
     font-size: 0.95rem;
     line-height: 1.6;
+    color: var(--text-dark);
 }
 
 /* Service Section - Mobile */

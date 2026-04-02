@@ -505,7 +505,7 @@ h1, h2, h3, h4, h5, h6 {
     display: grid;
     grid-template-columns: 1fr;
     margin-bottom: 4rem;
-    min-height: 500px;
+    min-height: 400px;
     overflow: hidden;
     border-radius: 16px;
     box-shadow: var(--shadow);
