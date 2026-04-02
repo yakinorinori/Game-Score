@@ -141,8 +141,21 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSmoothScroll();
     initializePopupCardClick();
     handleImageLoading();
+    initializeLogoClick();
     console.log('Company website initialized');
 });
+function initializeLogoClick() {
+    const logo = document.getElementById('logo-to-top');
+    if (logo) {
+        logo.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+}
 function handleImageLoading() {
     const images = document.querySelectorAll('img');
     images.forEach((img) => {

@@ -223,8 +223,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // 画像読み込み完了時のアニメーション削除
     handleImageLoading();
     
+    // ロゴクリック時のスクロール処理
+    initializeLogoClick();
+    
     console.log('Company website initialized');
 });
+
+/**
+ * ロゴクリック時にページトップへスクロール
+ */
+function initializeLogoClick(): void {
+    const logo = document.getElementById('logo-to-top');
+    
+    if (logo) {
+        logo.addEventListener('click', (event: Event) => {
+            event.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+}
 
 /**
  * 画像読み込み完了時のアニメーション処理

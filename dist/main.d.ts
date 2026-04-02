@@ -19,5 +19,6 @@ declare function detectDevice(): DeviceInfo;
 declare function loadDeviceSpecificStyles(): void;
 declare function setupResponsiveListener(): void;
 declare function logDeviceInfo(): void;
+declare function initializeLogoClick(): void;
 declare function handleImageLoading(): void;
 //# sourceMappingURL=main.d.ts.map
