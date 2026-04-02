@@ -1,0 +1,21 @@
+{
+  "name": "game-score",
+  "version": "1.0.0",
+  "description": "ゲームスコア記録Webアプリ",
+  "main": "index.html",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "start": "tsc && python3 -m http.server 8000"
+  },
+  "keywords": [
+    "game",
+    "score",
+    "tracking"
+  ],
+  "author": "yakinorinori",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
