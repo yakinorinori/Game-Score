@@ -758,11 +758,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
     margin: 2rem 0 4rem;
     position: relative;
     z-index: 2;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .neon-card {
@@ -1143,6 +1146,11 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact-cards {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
