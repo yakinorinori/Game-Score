@@ -1155,6 +1155,13 @@ h1, h2, h3, h4, h5, h6 {
         gap: 2rem;
     }
 
+    .profile-info {
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
     .popup-container {
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
@@ -1165,12 +1172,30 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .profile-content {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 2rem;
+        min-height: auto;
+        background: transparent;
+        box-shadow: none;
     }
 
     .profile-image {
+        position: relative;
+        width: 100%;
+        height: 250px;
         order: -1;
+        border-radius: 12px;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    .profile-overlay {
+        position: static;
+        padding: 0;
+        background: none;
+        height: auto;
+        align-items: stretch;
     }
 
     .service-page-container {

@@ -134,31 +134,46 @@
 
 /* Profile Section - Mobile */
 .profile-content {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
+    min-height: auto;
+    background: transparent;
+    box-shadow: none;
+    padding: 15px;
 }
 
 .profile-image {
+    position: relative;
     order: -1;
     height: 250px;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
 .profile-image img {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    border-radius: 12px;
+    display: block;
 }
 
 .profile-overlay {
+    position: static;
     padding: 0;
+    background: none;
+    height: auto;
+    display: block;
 }
 
 .profile-info {
     padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 12px;
     backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .profile-info h3 {
